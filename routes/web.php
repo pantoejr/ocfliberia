@@ -3,11 +3,11 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\CountyTypeController;
-use App\Http\Controllers\DistributionBeneficiary;
 use App\Http\Controllers\DistributionBeneficiaryController;
 use App\Http\Controllers\DistributionController;
 use App\Http\Controllers\DistributionTypeController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SchoolController;
@@ -18,28 +18,40 @@ use Illuminate\Support\Facades\Route;
 
 //Home Routes
 Route::controller(HomeController::class)->group(function(){
-    Route::get('/','dashboard')->name('home.dashboard')->middleware('auth');
+    Route::get('/','dashboard')->name('home.dashboard')->middleware('auth')->can('view-dashboard');
 });
 
 //Roles Routes
 Route::controller(RoleController::class)->group(function(){
-    Route::get('roles','index')->name('roles.index')->middleware('auth');
-    Route::get('roles/create','create')->name('roles.create')->middleware('auth');
-    Route::post('roles/create','store')->name('roles.store')->middleware('auth');
-    Route::get('roles/edit/{id}','edit')->name('roles.edit')->middleware('auth');
-    Route::post('roles/edit/{id}','update')->name('roles.update')->middleware('auth');
-    Route::get('roles/delete/{id}','destroy')->name('roles.delete')->middleware('auth');
+    Route::get('roles','index')->name('roles.index')->middleware('auth')->can('manage-roles');
+    Route::get('roles/create','create')->name('roles.create')->middleware('auth')->can('add-role');
+    Route::post('roles/create','store')->name('roles.store')->middleware('auth')->can('add-role');
+    Route::get('roles/edit/{id}','edit')->name('roles.edit')->middleware('auth')->can('edit-role');
+    Route::post('roles/edit/{id}','update')->name('roles.update')->middleware('auth')->can('edit-role');
+    Route::get('roles/delete/{id}','destroy')->name('roles.delete')->middleware('auth')->can('delete-role');
+    Route::get('roles/details/{id}','details')->name('roles.details')->middleware('auth')->can('view-role-details');
+});
+
+
+//Roles Routes
+Route::controller(PermissionController::class)->group(function(){
+    Route::get('permissions','index')->name('permissions.index')->middleware('auth')->can('manage-permissions');
+    Route::get('permissions/create','create')->name('permissions.create')->middleware('auth')->can('add-permission');
+    Route::post('permissions/create','store')->name('permissions.store')->middleware('auth')->can('add-permission');
+    Route::get('permissions/edit/{id}','edit')->name('permissions.edit')->middleware('auth')->can('edit-permission');
+    Route::post('permissions/edit/{id}','update')->name('permissions.update')->middleware('auth')->can('edit-permission');
+    Route::get('permissions/delete/{id}','destroy')->name('permissions.delete')->middleware('auth')->can('delete-permission');
 });
 
 //Account Routes
 Route::controller(AccountController::class)->group(function(){
-    Route::get('account/users', 'users')->name('account.users');
-    Route::get('account/register', 'register')->name('account.register');
-    Route::get('account/users/{id}','edit')->name('account.edit');
-    Route::post('account/users/{id}','update')->name('account.update');
-    Route::get('account/details/{id}','details')->name('account.details');
-    Route::post('account/register','store')->name('account.store')->middleware('auth');
-    Route::get('account/delete/{id}','destroy')->name('account.destroy')->middleware('auth');
+    Route::get('account/users', 'users')->name('account.users')->can('manage-users');
+    Route::get('account/register', 'register')->name('account.register')->can('add-user');
+    Route::get('account/users/{id}','edit')->name('account.edit')->can('edit-user');
+    Route::post('account/users/{id}','update')->name('account.update')->can('edit-user');
+    Route::get('account/details/{id}','details')->name('account.details')->can('view-user-details');
+    Route::post('account/register','store')->name('account.store')->middleware('auth')->can('add-user');
+    Route::get('account/delete/{id}','destroy')->name('account.destroy')->middleware('auth')->can('delete-user');
     Route::get('login', 'login')->name('login');
     Route::post('login','authenticate')->name('authenticate');
     Route::get('/logout', 'logout')->name('logout')->middleware('auth');
@@ -49,7 +61,7 @@ Route::controller(AccountController::class)->group(function(){
 
 //CountyTypes Routes
 Route::controller(CountyTypeController::class)->group(function(){
-    Route::get('counties','index')->name('counties.index')->middleware('auth');
+    Route::get('counties','index')->name('counties.index')->middleware('auth')->can('manage-county-types');
     Route::get('counties/create','create')->name('counties.create')->middleware('auth');
     Route::post('counties/create','store')->name('counties.store')->middleware('auth');
     Route::get('counties/edit/{id}','edit')->name('counties.edit')->middleware('auth');

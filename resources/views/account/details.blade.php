@@ -47,13 +47,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="role_id" class="form-label">Role</label>
-                                            <select class="form-control" id="role_id" name="role_id" disabled >
-                                                @foreach($roles as $rolesid => $rolename)
-                                                    <option value="{{ $rolesid }}" {{ $user->role_id == $rolesid ? 'selected' : '' }}>
-                                                        {{ $rolename }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+                                            <input type="text" class="form-control" value="{{ $user->roles->pluck('name')[0] ?? '' }}" disabled />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -80,7 +74,7 @@
                                 <div class="row mb-4">
                                     <div class="col-md-12">
                                         <div class="form-group mb-3">
-                                            <a href="{{ route('account.users') }}" class="btn btn-info">Back</a>
+                                            <a href="{{ route('account.users') }}" class="btn btn-light">Back to List</a>
                                         </div>
                                     </div>
                                 </div>

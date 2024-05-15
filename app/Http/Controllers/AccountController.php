@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
 use App\Models\User;
 use Exception;
-use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Permission\Models\Role;
 
 class AccountController extends Controller
 {
@@ -47,20 +46,20 @@ class AccountController extends Controller
 
         $path = $request->file('imagePath')->store('images', 'public');
         $is_active = $request->is_active ? 1 : 0;
-
+        $role = Role::findById($request->roleId);
         $user = new User([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'contact' => $request->input('contact'),
             'address' => $request->input('address'),
-            'role_id' => $request->input('role_id'),
             'imagePath' => $path,
             'password' => Hash::make($request->password),
             'login_hint' => $request->password,
             'is_active' => $is_active,
         ]);
-
         $user->save();
+        $user->assignRole($role);
+
         return redirect('account/users')->with('msg', 'User created successfully')->with('flag', 'alert-success');
     }
 
@@ -82,11 +81,6 @@ class AccountController extends Controller
             $request->session()->regenerate();
             return redirect()->route('home.dashboard')->with('msg', 'You have successfully logged in!')->with('flag', 'alert-success');
         }
-        // if (Auth::attempt($credentials)) {
-        //     $request->session()->regenerate();
-        //     return redirect()->route('home.dashboard')->with('msg', 'You have successfully logged in!')->with('flag', 'alert-success');
-        // }
-
         return back()->withErrors([
             'email' => 'Your provided credentials do not match in our records.',
         ])->onlyInput('email');
@@ -95,7 +89,6 @@ class AccountController extends Controller
     public function logout()
     {
         Auth::logout();
-
         return redirect('/login')->with('success', 'Logged out successfully.');
     }
 
@@ -125,7 +118,6 @@ class AccountController extends Controller
             $isActive = $request->is_active ? 1 : 0;
             $user->email = $request->email;
             $user->contact = $request->contact;
-            $user->role_id = $request->role_id;
             $user->address = $request->address;
             $user->name = $request->name;
             $user->is_active = $isActive;
@@ -154,7 +146,7 @@ class AccountController extends Controller
     {
         $user = User::find($id);
         $user->delete();
-        return redirect('/users')->with('msg', 'User deleted successfully');
+        return redirect('/account/users')->with('msg', 'User deleted successfully')->with('flag','alert-success');
     }
 
     public function changePassword()

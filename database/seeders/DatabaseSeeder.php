@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,21 +17,15 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
         // Role::create([
-        //     'name' => 'Superadmin',
-        //     'created_by' => 'system',
-        //     'is_active' => true,
+        //     'name' => 'superadmin'
         // ]);
 
         // Role::create([
-        //     'name' => 'Admin',
-        //     'created_by' => 'system',
-        //     'is_active' => true,
+        //     'name' => 'admin',
         // ]);
 
         // Role::create([
-        //     'name' => 'Staff',
-        //     'created_by' => 'system',
-        //     'is_active' => true,
+        //     'name' => 'staff',
         // ]);
 
         User::create([
@@ -42,7 +36,6 @@ class DatabaseSeeder extends Seeder
             'login_hint' => 'P@55w0rd',
             'address' => '5th Street',
             'is_active' => true,
-            'role_id' => 1,
         ]);
     }
 }

@@ -7,7 +7,9 @@
         <div class="row">
             <div class="col-md-12 col-sm-12">
                 <h3>{{ $title }}</h3>
-                <a href="{{ route('sponsors.create') }}" class="btn btn-primary mb-2">Add New Record</a><br><br>
+                @haspermission('add-sponsor')
+                    <a href="{{ route('sponsors.create') }}" class="btn btn-primary mb-2">Add New Record</a><br><br>
+                @endhaspermission
                 <div class="card mb-4">
                     <div class="card-body p-4">
                         <div class="table-responsive">
@@ -31,14 +33,24 @@
                                             <td>{{ $sponsor->contact }}</td>
                                             <td>
                                                 @if ($sponsor->is_active == true)
-                                                <span class="badge bg-success">Active</span>
+                                                    <span class="badge bg-success">Active</span>
                                                 @else
                                                     <span class="badge bg-danger">In Active</span>
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{ route('sponsors.edit', ['id' => $sponsor->id]) }}" class="btn btn-warning btn-sm"><i class="fas fa-fw fa-edit"></i></a>
-                                                <a href="{{ route('sponsors.destroy', ['id' => $sponsor->id]) }}" onclick="confirmDelete(event)" class="btn btn-danger btn-sm"><i class="fas fa-fw fa-trash"></i></a>
+                                                @haspermission('edit-sponsor')
+                                                    <a href="{{ route('sponsors.edit', ['id' => $sponsor->id]) }}"
+                                                        class="btn btn-warning btn-sm"><i class="fas fa-fw fa-edit"></i>
+                                                    </a>
+                                                @endhaspermission
+                                                @haspermission('delete-sponsor')
+                                                    <a href="{{ route('sponsors.destroy', ['id' => $sponsor->id]) }}"
+                                                        onclick="confirmDelete(event)" class="btn btn-danger btn-sm"><i
+                                                            class="fas fa-fw fa-trash">
+                                                        </i>
+                                                    </a>
+                                                @endhaspermission
                                             </td>
                                         </tr>
                                         @php
@@ -54,7 +66,7 @@
         </div>
     </div>
     <script type="text/javascript">
-        $(document).ready(function (){
+        $(document).ready(function() {
             $('#sponsorsTable').dataTable({
 
             });

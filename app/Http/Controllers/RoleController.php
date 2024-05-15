@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
+
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
@@ -24,8 +25,6 @@ class RoleController extends Controller
     public function store(Request $request){
         $role = new Role([
             'name' => $request->input('name'),
-            'created_by' => 'system',
-            'is_active' => true,
         ]);
 
         $role->save();
@@ -45,6 +44,14 @@ class RoleController extends Controller
         $role->name = $request->name;
         $role->save();
         return redirect('/roles')->with('msg','Record updated successfully')->with('flag','alert-success');
+    }
+
+    public function details($id){
+        $role = Role::find($id);
+        return view('roles.details',[
+            'title' => 'Role Details',
+            'role' => $role,
+        ]);
     }
 
 

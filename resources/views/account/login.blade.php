@@ -23,12 +23,15 @@
 
 </head>
 
-<body class="bg-gradient-primary">
+<body class="bg-light">
 
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-xl-6 col-lg-6 col-md-9">
-                <div class="card o-hidden border-0 shadow-sm my-5">
+                <div class="text-center mt-5">
+                    <img src="{{ asset('assets/img/logo.png') }}" alt="Logo" width="120" />
+                </div>
+                <div class="card o-hidden border-0 shadow-sm my-3">
                     <div class="card-body p-0">
                         <div class="row justify-content-center">
                             <div class="col-lg-12">
