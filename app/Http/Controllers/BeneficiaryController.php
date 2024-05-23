@@ -25,7 +25,7 @@ class BeneficiaryController extends Controller
 
     public function create()
     {
-        $schools = School::pluck('name', 'id');
+        $schools = School::where('is_active', true)->get();
         return view('beneficiaries.create', compact('schools'), [
             'title' => 'Create Student',
             'schools' => $schools,
@@ -132,7 +132,7 @@ class BeneficiaryController extends Controller
     {
         $visitId = $request->input('visit_id');
         $visit = Visit::find($visitId);
-        $beneficiaries = Beneficiary::where('school_id', $visit->school_id)->get();
+        $beneficiaries = Beneficiary::where('school_id', $visit->school_id)->where('is_active',true)->get();
         return response()->json($beneficiaries);
     }
 

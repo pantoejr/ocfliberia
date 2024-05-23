@@ -93,7 +93,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('schools.index') }}" wire:navigate>
                         <i class="fas fa-fw fa-school"></i>
-                        <span>Schools</span>
+                        <span>Institutions</span>
                     </a>
                 </li>
             @endhaspermission

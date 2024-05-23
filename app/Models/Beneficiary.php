@@ -21,4 +21,8 @@ class Beneficiary extends Model
         'created_by',
         'is_active',
     ];
+
+    public function school(){
+        return $this->belongsTo(School::class);
+    }
 }

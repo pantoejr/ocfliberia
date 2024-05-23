@@ -7,7 +7,9 @@
         <div class="row">
             <div class="col-md-12 col-sm-12">
                 <h3>{{ $title }}</h3>
-                <a href="{{ route('schools.create') }}" class="btn btn-primary mb-2">Add New Record</a><br><br>
+                @haspermission('add-school')
+                    <a href="{{ route('schools.create') }}" class="btn btn-primary mb-2">Add New Record</a><br><br>
+                @endhaspermission
                 <div class="card mb-4">
                     <div class="card-body p-4">
                         <div class="table-responsive">

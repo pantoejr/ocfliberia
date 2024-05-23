@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>OCF LIBERIA | {{ $title }}</title>
 </head>
 @php
@@ -59,34 +56,29 @@
 
 <body>
     <h2><span class="heading-2">{{ $title }}</span></h2>
-    <table class="table">
+    {{-- <table class="table">
         <thead>
             <tr>
                 <th>No.</th>
                 <th>Beneficiary</th>
                 <th>School</th>
-                <th>Visit</th>
-                <th>Distribution Date</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($beneficiaries as $beneficiary )
                 <tr>
                     <td>{{ $count }}</td>
-                    <td>{{ $beneficiary->beneficiary->fullname }}</td>
+                    <td>{{ $beneficiary->fullname }}</td>
                     <td>{{ $beneficiary->school->name }}</td>
-                    <td>{{ $beneficiary->visit->name }}</td>
-                    <td>{{ $beneficiary->distribution->distribution_date }}</td>
                 </tr>
                 @php
                     $count++;
                 @endphp
             @endforeach
         </tbody>
-    </table>
+    </table> --}}
     <footer style="margin-top: 20">
         <p>&copy; {{ date('Y') }} OCFLIBERIA, All Rights Reserved</p>
     </footer>
 </body>
-
 </html>

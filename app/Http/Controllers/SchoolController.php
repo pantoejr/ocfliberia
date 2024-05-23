@@ -20,8 +20,8 @@ class SchoolController extends Controller
     }
 
     public function create(){
-        $sponsors = Sponsor::pluck('name','id');
-        $counties = CountyType::pluck('name','id');
+        $sponsors = Sponsor::where('is_active',true)->get();
+        $counties = CountyType::where('is_active',true)->get();
         return view('schools.create',compact('sponsors','counties'),[
             'title' => 'Create School',
         ]);

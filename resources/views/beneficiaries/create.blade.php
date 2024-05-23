@@ -33,12 +33,14 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="school_id" class="form-label">School</label>
+                            <label for="school_id" class="form-label">Institution</label>
                             <select class="form-control @error('school_id')
                                 is-invalid
                             @enderror" id="school_id" name="school_id">
-                                @foreach($schools as $schoolId => $schoolName)
-                                    <option value="{{ $schoolId }}">{{ $schoolName }}</option>
+                                @foreach($schools as $school)
+                                    <option value="{{ $school->id }}">
+                                        {{ $school->name }}
+                                    </option>
                                 @endforeach
                                 @error('school_id')
                                     <span class="invalid-feedback" role="alert">

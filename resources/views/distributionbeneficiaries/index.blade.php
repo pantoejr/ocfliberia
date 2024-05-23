@@ -7,7 +7,9 @@
         <div class="row">
             <div class="col-md-12">
                 <h3 class="mb-3">{{ $title }}</h3>
-                <a href="{{ route('distribution.beneficiaries.pdf') }}" class="btn btn-primary mb-3">PDF</a>
+                @haspermission('view-beneficiaries-pdf')
+                    <a href="{{ route('distribution.beneficiaries.pdf') }}" class="btn btn-primary mb-3">PDF</a>
+                @endhaspermission
                 <div class="card">
                     <div class="card-body p-4">
                         <div class="table-responsive">

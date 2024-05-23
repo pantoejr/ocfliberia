@@ -20,16 +20,18 @@
                     <div class="form-group">
                         <label for="county_id" class="form-label">County</label>
                         <select class="form-control" id="county_id" name="county_id" required >
-                            @foreach($counties as $countyId => $countyName)
-                                <option value="{{ $countyId }}">{{ $countyName }}</option>
+                            @foreach($counties as $county)
+                                <option value="{{ $county->id }}">{{ $county->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="sponsor_id" class="form-label">Sponsor</label>
                         <select class="form-control" id="sponsor_id" name="sponsor_id" required >
-                            @foreach($sponsors as $sponsorId => $sponsorName)
-                                <option value="{{ $sponsorId }}">{{ $sponsorName }}</option>
+                            @foreach($sponsors as $sponsor)
+                                <option value="{{ $sponsor->id }}">
+                                    {{ $sponsor->name }}
+                                </option>
                             @endforeach
                         </select>
                     </div>

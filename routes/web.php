@@ -62,89 +62,89 @@ Route::controller(AccountController::class)->group(function(){
 //CountyTypes Routes
 Route::controller(CountyTypeController::class)->group(function(){
     Route::get('counties','index')->name('counties.index')->middleware('auth')->can('manage-county-types');
-    Route::get('counties/create','create')->name('counties.create')->middleware('auth');
-    Route::post('counties/create','store')->name('counties.store')->middleware('auth');
-    Route::get('counties/edit/{id}','edit')->name('counties.edit')->middleware('auth');
-    Route::post('counties/edit/{id}','update')->name('counties.update')->middleware('auth');
-    Route::get('counties/destroy/{id}','destroy')->name('counties.destroy')->middleware('auth');
+    Route::get('counties/create','create')->name('counties.create')->middleware('auth')->can('add-county-type');
+    Route::post('counties/create','store')->name('counties.store')->middleware('auth')->can('add-county-type');
+    Route::get('counties/edit/{id}','edit')->name('counties.edit')->middleware('auth')->can('edit-county-type');
+    Route::post('counties/edit/{id}','update')->name('counties.update')->middleware('auth')->can('edit-county-type');
+    Route::get('counties/destroy/{id}','destroy')->name('counties.destroy')->middleware('auth')->can('delete-county-type');
 });
 
 //Distribution Type Routes
 Route::controller(DistributionTypeController::class)->group(function(){
-    Route::get('distributiontypes','index')->name('distributiontypes.index')->middleware('auth');
-    Route::get('distributiontypes/create','create')->name('distributiontypes.create')->middleware('auth');
-    Route::post('distributiontypes/create','store')->name('distributiontypes.store')->middleware('auth');
-    Route::get('distributiontypes/edit/{id}','edit')->name('distributiontypes.edit')->middleware('auth');
-    Route::post('distributiontypes/edit/{id}','update')->name('distributiontypes.update')->middleware('auth');
-    Route::get('distributiontypes/destroy/{id}','destroy')->name('distributiontypes.destroy')->middleware('auth');
+    Route::get('distributiontypes','index')->name('distributiontypes.index')->middleware('auth')->can('manage-distribution-types');
+    Route::get('distributiontypes/create','create')->name('distributiontypes.create')->middleware('auth')->can('add-distribution-type');
+    Route::post('distributiontypes/create','store')->name('distributiontypes.store')->middleware('auth')->can('add-distribution-type');
+    Route::get('distributiontypes/edit/{id}','edit')->name('distributiontypes.edit')->middleware('auth')->can('edit-distribution-type');
+    Route::post('distributiontypes/edit/{id}','update')->name('distributiontypes.update')->middleware('auth')->can('edit-distribution-type');
+    Route::get('distributiontypes/destroy/{id}','destroy')->name('distributiontypes.destroy')->middleware('auth')->can('delete-distribution-type');
 });
 
 //Sponsor Routes
 Route::controller(SponsorController::class)->group(function(){
-    Route::get('sponsors','index')->name('sponsors.index')->middleware('auth');
-    Route::get('sponsors/create','create')->name('sponsors.create')->middleware('auth');
-    Route::post('sponsors/create','store')->name('sponsors.store')->middleware('auth');
-    Route::get('sponsors/edit/{id}','edit')->name('sponsors.edit')->middleware('auth');
-    Route::post('sponsors/edit/{id}','update')->name('sponsors.update')->middleware('auth');
-    Route::get('sponsors/destroy/{id}','destroy')->name('sponsors.destroy')->middleware('auth');
+    Route::get('sponsors','index')->name('sponsors.index')->middleware('auth')->can('manage-sponsors');
+    Route::get('sponsors/create','create')->name('sponsors.create')->middleware('auth')->can('add-sponsor');
+    Route::post('sponsors/create','store')->name('sponsors.store')->middleware('auth')->can('add-sponsor');
+    Route::get('sponsors/edit/{id}','edit')->name('sponsors.edit')->middleware('auth')->can('edit-sponsor');
+    Route::post('sponsors/edit/{id}','update')->name('sponsors.update')->middleware('auth')->can('edit-sponsor');
+    Route::get('sponsors/destroy/{id}','destroy')->name('sponsors.destroy')->middleware('auth')->can('delete-sponsor');
 });
 
 //School Routes
 Route::controller(SchoolController::class)->group(function(){
-    Route::get('schools','index')->name('schools.index')->middleware('auth');
-    Route::get('schools/create','create')->name('schools.create')->middleware('auth');
-    Route::post('schools/create','store')->name('schools.store')->middleware('auth');
-    Route::get('schools/edit/{id}','edit')->name('schools.edit')->middleware('auth');
-    Route::post('schools/edit/{id}','update')->name('schools.update')->middleware('auth');
-    Route::get('schools/destroy/{id}','destroy')->name('schools.destroy')->middleware('auth');
+    Route::get('schools','index')->name('schools.index')->middleware('auth')->can('manage-schools');
+    Route::get('schools/create','create')->name('schools.create')->middleware('auth')->can('add-school');
+    Route::post('schools/create','store')->name('schools.store')->middleware('auth')->can('add-school');
+    Route::get('schools/edit/{id}','edit')->name('schools.edit')->middleware('auth')->can('edit-school');
+    Route::post('schools/edit/{id}','update')->name('schools.update')->middleware('auth')->can('edit-school');
+    Route::get('schools/destroy/{id}','destroy')->name('schools.destroy')->middleware('auth')->can('delete-school');
 });
 
 //Beneficiary Routes
 Route::controller(BeneficiaryController::class)->group(function(){
-    Route::get('beneficiaries','index')->name('beneficiaries.index')->middleware('auth');
-    Route::get('beneficiaries/create','create')->name('beneficiaries.create')->middleware('auth');
-    Route::post('beneficiaries/create','store')->name('beneficiaries.store')->middleware('auth');
-    Route::get('beneficiaries/details/{id}','details')->name('beneficiaries.details')->middleware('auth');
-    Route::get('beneficiaries/edit/{id}','edit')->name('beneficiaries.edit')->middleware('auth');
-    Route::post('beneficiaries/edit/{id}','update')->name('beneficiaries.update')->middleware('auth');
-    Route::get('beneficiaries/destroy/{id}','destroy')->name('beneficiaries.destroy')->middleware('auth');
+    Route::get('beneficiaries','index')->name('beneficiaries.index')->middleware('auth')->can('manage-students');
+    Route::get('beneficiaries/create','create')->name('beneficiaries.create')->middleware('auth')->can('add-student');
+    Route::post('beneficiaries/create','store')->name('beneficiaries.store')->middleware('auth')->can('add-student');
+    Route::get('beneficiaries/details/{id}','details')->name('beneficiaries.details')->middleware('auth')->can('view-student-details');
+    Route::get('beneficiaries/edit/{id}','edit')->name('beneficiaries.edit')->middleware('auth')->can('edit-student');
+    Route::post('beneficiaries/edit/{id}','update')->name('beneficiaries.update')->middleware('auth')->can('edit-student');
+    Route::get('beneficiaries/destroy/{id}','destroy')->name('beneficiaries.destroy')->middleware('auth')->can('delete-student');
     Route::get('beneficiaries/get-beneficiaries','getBeneficiaries')->name('getBeneficiaries')->middleware('auth');
     Route::get('beneficiaries/get-project-beneficiaries','getProjectBeneficiaries')->name('getProjectBeneficiaries')->middleware('auth');
 });
 
 //Visit Routes
 Route::controller(VisitController::class)->group(function(){
-    Route::get('visits','index')->name('visits.index')->middleware('auth');
-    Route::get('visits/create','create')->name('visits.create')->middleware('auth');
-    Route::post('visits/create','store')->name('visits.store')->middleware('auth');
-    Route::get('visits/details/{id}','details')->name('visits.details')->middleware('auth');
-    Route::get('visits/edit/{id}','edit')->name('visits.edit')->middleware('auth');
-    Route::post('visits/edit/{id}','update')->name('visits.update')->middleware('auth');
-    Route::get('visits/destroy/{id}','destroy')->name('visits.destroy')->middleware('auth');
+    Route::get('visits','index')->name('visits.index')->middleware('auth')->can('manage-visits');
+    Route::get('visits/create','create')->name('visits.create')->middleware('auth')->can('add-visit');
+    Route::post('visits/create','store')->name('visits.store')->middleware('auth')->can('add-visit');
+    Route::get('visits/details/{id}','details')->name('visits.details')->middleware('auth')->can('view-visit-details');
+    Route::get('visits/edit/{id}','edit')->name('visits.edit')->middleware('auth')->can('edit-visit');
+    Route::post('visits/edit/{id}','update')->name('visits.update')->middleware('auth')->can('edit-visit');
+    Route::get('visits/destroy/{id}','destroy')->name('visits.destroy')->middleware('auth')->can('delete-visit');
 });
 
 //Distributions Routes
 Route::controller(DistributionController::class)->group(function(){
-    Route::get('distributions','index')->name('distributions.index')->middleware('auth');
-    Route::get('distributions/create','create')->name('distributions.create')->middleware('auth');
-    Route::post('distributions/create','store')->name('distributions.store')->middleware('auth');
-    Route::get('distributions/details/{id}','details')->name('distributions.details')->middleware('auth');
-    Route::get('distributions/edit/{id}','edit')->name('distributions.edit')->middleware('auth');
-    Route::post('distributions/edit/{id}','update')->name('distributions.update')->middleware('auth');
-    Route::get('distributions/destroy/{id}','destroy')->name('distributions.destroy')->middleware('auth');
+    Route::get('distributions','index')->name('distributions.index')->middleware('auth')->can('manage-distributions');
+    Route::get('distributions/create','create')->name('distributions.create')->middleware('auth')->can('add-distribution');
+    Route::post('distributions/create','store')->name('distributions.store')->middleware('auth')->can('add-distribution');
+    Route::get('distributions/details/{id}','details')->name('distributions.details')->middleware('auth')->can('view-distribution-details');
+    Route::get('distributions/edit/{id}','edit')->name('distributions.edit')->middleware('auth')->can('edit-distribution');
+    Route::post('distributions/edit/{id}','update')->name('distributions.update')->middleware('auth')->can('edit-distribution');
+    Route::get('distributions/destroy/{id}','destroy')->name('distributions.destroy')->middleware('auth')->can('delete-distribution');
 });
 
 
 //Distribution Beneficiaries
 Route::controller(DistributionBeneficiaryController::class)->group(function(){
-    Route::get('distribution-beneficiaries','index')->name('distribution.beneficiaries')->middleware('auth');
-    Route::get('distribution-beneficiaries/pdf','viewPdf')->name('distribution.beneficiaries.pdf')->middleware('auth');
+    Route::get('distribution-beneficiaries','index')->name('distribution.beneficiaries')->middleware('auth')->can('view-distribution-report');
+    Route::get('distribution-beneficiaries/pdf','viewPdf')->name('distribution.beneficiaries.pdf')->middleware('auth')->can('export-distribution-report');
 });
 
 //Report Routes
 Route::controller(ReportController::class)->group(function(){
-    Route::get('reports/students','students')->name('reports.students')->middleware('auth');
-    Route::get('reports/distributions','distributions')->name('reports.distributions')->middleware('auth');
-    Route::get('reports/visits','visits')->name('reports.visits')->middleware('auth');
-    Route::get('reports/sponsors','sponsors')->name('reports.sponsors')->middleware('auth');
+    Route::get('reports/students','students')->name('reports.students')->middleware('auth')->can('view-student-report');
+    Route::get('reports/distributions','distributions')->name('reports.distributions')->middleware('auth')->can('view-distribution-report');
+    Route::get('reports/visits','visits')->name('reports.visits')->middleware('auth')->can('view-visits-report');
+    Route::get('reports/sponsors','sponsors')->name('reports.sponsors')->middleware('auth')->can('view-sponsors-report');
 });
