@@ -2,27 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\Sponsors;
 use App\Models\Sponsor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SponsorController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $sponsors = Sponsor::all();
-        return view('sponsors.index',[
+        return view('sponsors.index', [
             'title' => 'List of Sponsors',
             'sponsors' => $sponsors,
         ]);
     }
 
-    public function create(){
-        return view('sponsors.create',[
+    public function create()
+    {
+        return view('sponsors.create', [
             'title' => 'Create Sponsor'
         ]);
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
@@ -40,17 +46,19 @@ class SponsorController extends Controller
         ]);
 
         $sponsor->save();
-        return redirect('sponsors')->with('msg','sponsor created successfully')->with('flag','alert-success');
+        return redirect('sponsors')->with('msg', 'sponsor created successfully')->with('flag', 'alert-success');
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $sponsor = Sponsor::find($id);
-        return view('sponsors.edit',compact('sponsor'),[
+        return view('sponsors.edit', compact('sponsor'), [
             'title' => 'Edit Sponsor'
         ]);
     }
 
-    public function update($id, Request $request){
+    public function update($id, Request $request)
+    {
         $sponsor = Sponsor::find($id);
         $sponsor->name = $request->name;
         $sponsor->email = $request->email;
@@ -59,12 +67,28 @@ class SponsorController extends Controller
 
         $sponsor->save();
 
-        return redirect('sponsors')->with('msg','sponsor update successfully')->with('flag','alert-success');
+        return redirect('sponsors')->with('msg', 'sponsor update successfully')->with('flag', 'alert-success');
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         $sponsor = Sponsor::find($id);
         $sponsor->delete();
-        return redirect('sponsors')->with('msg','sponsor deleted successfully')->with('flag','alert-danger');
+        return redirect('sponsors')->with('msg', 'sponsor deleted successfully')->with('flag', 'alert-danger');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new Sponsors, 'Sponsors_report.xlsx');
+    }
+
+    public function exportPDF()
+    {
+        $sponsors = Sponsor::all();
+        $pdf = PDF::loadView('reports.pdf.sponsor-report-pdf', data: [
+            'sponsors' => $sponsors,
+            'title' => 'Sponsor Report',
+        ])->setPaper('a4', 'landscape');
+        return $pdf->stream();
     }
 }

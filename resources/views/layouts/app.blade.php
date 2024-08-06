@@ -129,7 +129,7 @@
                     </a>
                 </li>
             @endhaspermission
-            @haspermission('manage-reports')
+            {{-- @haspermission('manage-reports')
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                         aria-expanded="true" aria-controls="collapseUtilities">
@@ -147,7 +147,7 @@
                         </div>
                     </div>
                 </li>
-            @endhaspermission
+            @endhaspermission --}}
             @haspermission('manage-settings')
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
@@ -165,8 +165,7 @@
                                 <a class="collapse-item" href="{{ route('roles.index') }}" wire:navigate>Roles</a>
                             @endhaspermission
                             @haspermission('manage-permissions')
-                                <a class="collapse-item" href="{{ route('permissions.index') }}"
-                                    wire:navigate>Permissions</a>
+                                <a class="collapse-item" href="{{ route('permissions.index') }}" wire:navigate>Permissions</a>
                             @endhaspermission
                             <div class="collapse-divider"></div>
                             <h6 class="collapse-header">SYSTEM TYPES</h6>
@@ -181,24 +180,14 @@
                     </div>
                 </li>
             @endhaspermission
-            <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
 
         </ul>
-        <!-- End of Sidebar -->
-
-        <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
             <div id="content">
-
-                <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
@@ -233,8 +222,6 @@
                     @yield('content')
                 </div>
             </div>
-
-            <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
@@ -243,20 +230,11 @@
                     </div>
                 </div>
             </footer>
-            <!-- End of Footer -->
-
         </div>
-        <!-- End of Content Wrapper -->
-
     </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
-    <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">

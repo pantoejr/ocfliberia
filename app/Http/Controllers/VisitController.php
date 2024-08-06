@@ -11,17 +11,19 @@ use Illuminate\Support\Facades\Auth;
 
 class VisitController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $visits = Visit::all();
         $title = "List of Visits";
-        return view('visits.index',compact('visits', 'title'));
+        return view('visits.index', compact('visits', 'title'));
     }
 
-    public function create(){
-        $sponsors = Sponsor::pluck('name','id');
-        $schools = School::pluck('name','id');
+    public function create()
+    {
+        $sponsors = Sponsor::pluck('name', 'id');
+        $schools = School::pluck('name', 'id');
         $title = "Create Visit";
-        return view('visits.create',compact('sponsors','schools','title'));
+        return view('visits.create', compact('sponsors', 'schools', 'title'));
     }
 
     public function store(Request $request)
@@ -44,18 +46,20 @@ class VisitController extends Controller
 
         $visit->save();
 
-        return redirect('visits')->with('msg', 'visit updated successfully')->with('flag', 'alert-success');
+        return redirect('visits')->with('msg', 'visit created successfully')->with('flag', 'alert-success');
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $visit =  Visit::find($id);
-        $sponsors = Sponsor::pluck('name','id');
-        $schools = School::pluck('name','id');
+        $sponsors = Sponsor::pluck('name', 'id');
+        $schools = School::pluck('name', 'id');
         $title = "Edit Visit";
-        return view('visits.edit',compact('visit','sponsors','schools','title'));
+        return view('visits.edit', compact('visit', 'sponsors', 'schools', 'title'));
     }
 
-    public function update($id, Request $request){
+    public function update($id, Request $request)
+    {
         try {
 
             $visit = Visit::find($id);
@@ -67,23 +71,25 @@ class VisitController extends Controller
             $visit->is_active = true;
             $visit->save();
 
-        return redirect('visits')->with('msg','Visit updated successfully')->with('flag','alert-success');
+            return redirect('visits')->with('msg', 'Visit updated successfully')->with('flag', 'alert-success');
         } catch (Exception $ex) {
-            return back()->with('msg','Error: '.$ex->getMessage())->with('flag','alert-danger');
+            return back()->with('msg', 'Error: ' . $ex->getMessage())->with('flag', 'alert-danger');
         }
     }
 
-    public function details($id){
+    public function details($id)
+    {
         $visit =  Visit::find($id);
-        $sponsors = Sponsor::pluck('name','id');
-        $schools = School::pluck('name','id');
+        $sponsors = Sponsor::pluck('name', 'id');
+        $schools = School::pluck('name', 'id');
         $title = "Visit Details";
-        return view('visits.details',compact('visit','sponsors','schools','title'));
+        return view('visits.details', compact('visit', 'sponsors', 'schools', 'title'));
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         $visit =  Visit::find($id);
         $visit->delete();
-        return redirect('visits')->with('msg','Visit deleted successfully')->with('flag','alert-success');
+        return redirect('visits')->with('msg', 'Visit deleted successfully')->with('flag', 'alert-success');
     }
 }

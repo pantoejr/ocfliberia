@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BeneficiariesExport;
 use App\Models\Beneficiary;
 use App\Models\ProjectBeneficiary;
 use App\Models\School;
@@ -10,6 +11,8 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class BeneficiaryController extends Controller
 {
@@ -132,7 +135,7 @@ class BeneficiaryController extends Controller
     {
         $visitId = $request->input('visit_id');
         $visit = Visit::find($visitId);
-        $beneficiaries = Beneficiary::where('school_id', $visit->school_id)->where('is_active',true)->get();
+        $beneficiaries = Beneficiary::where('school_id', $visit->school_id)->where('is_active', true)->get();
         return response()->json($beneficiaries);
     }
 
@@ -144,5 +147,20 @@ class BeneficiaryController extends Controller
             ->join('beneficiaries', 'project_beneficiaries.beneficiary_id', '=', 'beneficiaries.id')
             ->get();
         return response()->json($beneficiaries);
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new BeneficiariesExport, 'Students_Report.xlsx');
+    }
+
+    public function exportPDF()
+    {
+        $students = Beneficiary::all();
+        $pdf = PDF::loadView('reports.pdf.student-report-pdf', data: [
+            'students' => $students,
+            'title' => 'Student Report',
+        ])->setPaper('a4', 'landscape');
+        return $pdf->stream();
     }
 }

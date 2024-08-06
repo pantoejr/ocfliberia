@@ -7,9 +7,33 @@
         <div class="row">
             <div class="col-md-12 col-sm-12">
                 <h3>{{ $title }}</h3>
-                @haspermission('add-sponsor')
-                    <a href="{{ route('sponsors.create') }}" class="btn btn-primary mb-2">Add New Record</a><br><br>
-                @endhaspermission
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-6">
+                                @haspermission('add-sponsor')
+                                    <a href="{{ route('sponsors.create') }}" class="btn btn-primary mb-2">Add New Record</a>
+                                @endhaspermission
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-6 d-flex justify-content-md-end justify-content-sm-end">
+                                @haspermission('export-sponsors-report')
+                                    <div class="dropdown">
+                                        <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown"
+                                            aria-expanded="false">
+                                            Export
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="{{ route('sponsors.exportPDF') }}"
+                                                target="_blank">PDF</a>
+                                            <a class="dropdown-item" href="{{ route('sponsors.exportExcel') }}">Excel</a>
+                                        </div>
+                                    </div>
+                                @endhaspermission
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
                 <div class="card mb-4">
                     <div class="card-body p-4">
                         <div class="table-responsive">
@@ -67,9 +91,7 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#sponsorsTable').dataTable({
-
-            });
+            $('#sponsorsTable').dataTable({});
         })
     </script>
     <script type="text/javascript">
