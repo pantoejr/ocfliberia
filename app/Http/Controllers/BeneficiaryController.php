@@ -47,11 +47,13 @@ class BeneficiaryController extends Controller
                 'location' => 'required',
                 'contact' => 'required',
                 'class' => 'required',
-                'image' => 'required',
             ]);
             $isNew = $request->is_new ? 1 : 0;
             $isActive = $request->is_active ? 1 : 0;
-            $path = $request->file('image')->store('images', 'public');
+            $path = "";
+            if ($request->input('image') != null) {
+                $path = $request->file('image')->store('images', 'public');
+            }
 
             $beneficiary = new Beneficiary([
                 'fullname' => $request->input('fullname'),

@@ -99,6 +99,8 @@ Route::controller(SchoolController::class)->group(function () {
     Route::get('schools/edit/{id}', 'edit')->name('schools.edit')->middleware('auth')->can('edit-school');
     Route::post('schools/edit/{id}', 'update')->name('schools.update')->middleware('auth')->can('edit-school');
     Route::get('schools/destroy/{id}', 'destroy')->name('schools.destroy')->middleware('auth')->can('delete-school');
+    Route::get('schools/exportExcel/', 'exportExcel')->name('schools.exportExcel');
+    Route::get('schools/exportPDF/', 'exportPDF')->name('schools.exportPDF');
 });
 
 //Beneficiary Routes
