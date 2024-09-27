@@ -49,7 +49,7 @@
         </div>
     </div>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             function fetchBeneficiaries(visitId) {
                 $.ajax({
                     url: "{{ route('getBeneficiaries') }}",
@@ -60,12 +60,17 @@
                     success: function(response) {
                         $('#beneficiaryCheckboxes').empty();
                         response.forEach(function(beneficiary) {
+                            // Create a unique ID for each checkbox
+                            var checkboxId = 'beneficiary-' + beneficiary.id;
                             var checkbox = '<div class="col-md-2">' +
-                                            '<div class="custom-control custom-checkbox mb-4">' +
-                                            '<input type="checkbox" id="beneficiaryId" class="custom-control-input" name="beneficiaries[]" value="' + beneficiary.id + '">' +
-                                            '<label class="custom-control-label" for="beneficiaryId">' + beneficiary.fullname + '</label>' +
-                                            '</div>' +
-                                        '</div>';
+                                '<div class="custom-control custom-checkbox mb-4">' +
+                                '<input type="checkbox" id="' + checkboxId +
+                                '" class="custom-control-input beneficiary-checkbox" name="beneficiaries[]" value="' +
+                                beneficiary.id + '">' +
+                                '<label class="custom-control-label" for="' + checkboxId +
+                                '">' + beneficiary.fullname + '</label>' +
+                                '</div>' +
+                                '</div>';
                             $('#beneficiaryCheckboxes').append(checkbox);
                         });
                     },
@@ -74,10 +79,13 @@
                     }
                 });
             }
+
             $('#visit_id').on('change', function() {
                 var visitId = $(this).val();
                 fetchBeneficiaries(visitId);
             });
+
+            // Initial fetch
             fetchBeneficiaries($('#visit_id').val());
         });
     </script>
