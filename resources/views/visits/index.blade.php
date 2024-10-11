@@ -17,6 +17,8 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
                                         <th>School Visited</th>
                                         <th>Visit Date</th>
                                         <th>Visited By</th>
@@ -27,20 +29,26 @@
                                     @foreach ($visits as $visit)
                                         <tr>
                                             <td>{{ $count }}</td>
+                                            <td>{{ $visit->name }}</td>
+                                            <td>{{ $visit->description }}</td>
                                             <td>{{ $visit->school->name }}</td>
                                             <td>{{ $visit->visit_date }}</td>
                                             <td>{{ $visit->sponsor->name }}</td>
                                             <td>
                                                 @haspermission('edit-visit')
-                                                    <a href="{{ route('visits.edit', ['id' => $visit->id]) }}" class="btn btn-warning btn-sm">
+                                                    <a href="{{ route('visits.edit', ['id' => $visit->id]) }}"
+                                                        class="btn btn-warning btn-sm">
                                                         <i class="fas fa-fw fa-edit"></i>
                                                     </a>
                                                 @endhaspermission
                                                 @haspermission('view-visit-details')
-                                                    <a href="{{ route('visits.details', ['id' => $visit->id]) }}" class="btn btn-primary btn-sm"><i class="fas fa-fw fa-book"></i></a>
+                                                    <a href="{{ route('visits.details', ['id' => $visit->id]) }}"
+                                                        class="btn btn-primary btn-sm"><i class="fas fa-fw fa-book"></i></a>
                                                 @endhaspermission
                                                 @haspermission('delete-visit')
-                                                    <a href="{{ route('visits.destroy', ['id' => $visit->id]) }}" onclick="confirmDelete(event)" class="btn btn-danger btn-sm"><i class="fas fa-fw fa-trash"></i></a>
+                                                    <a href="{{ route('visits.destroy', ['id' => $visit->id]) }}"
+                                                        onclick="confirmDelete(event)" class="btn btn-danger btn-sm"><i
+                                                            class="fas fa-fw fa-trash"></i></a>
                                                 @endhaspermission
                                             </td>
                                         </tr>
@@ -57,7 +65,7 @@
         </div>
     </div>
     <script type="text/javascript">
-        $(document).ready(function (){
+        $(document).ready(function() {
             $('#schoolTable').dataTable({
 
             });
