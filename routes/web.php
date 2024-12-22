@@ -6,11 +6,14 @@ use App\Http\Controllers\CountyTypeController;
 use App\Http\Controllers\DistributionBeneficiaryController;
 use App\Http\Controllers\DistributionController;
 use App\Http\Controllers\DistributionTypeController;
+use App\Http\Controllers\DropoutController;
+use App\Http\Controllers\GraduateController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\SchoolTypeController;
 use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\VisitController;
 use Illuminate\Support\Facades\Route;
@@ -153,4 +156,40 @@ Route::controller(ReportController::class)->group(function () {
     Route::get('reports/distributions', 'distributions')->name('reports.distributions')->middleware('auth')->can('view-distribution-report');
     Route::get('reports/visits', 'visits')->name('reports.visits')->middleware('auth')->can('view-visits-report');
     Route::get('reports/sponsors', 'sponsors')->name('reports.sponsors')->middleware('auth')->can('view-sponsors-report');
+});
+
+//Droupouts Routes
+Route::controller(DropoutController::class)->group(function () {
+    Route::get('dropouts', 'index')->name('dropouts.index')->middleware('auth');
+    Route::get('dropouts/create', 'create')->name('dropouts.create')->middleware('auth');
+    Route::post('dropouts/create', 'store')->name('dropouts.store')->middleware('auth');
+    Route::get('dropouts/details/{id}', 'details')->name('dropouts.details')->middleware('auth');
+    Route::get('dropouts/edit/{id}', 'edit')->name('dropouts.edit')->middleware('auth');
+    Route::post('dropouts/edit/{id}', 'update')->name('dropouts.update')->middleware('auth');
+    Route::get('dropouts/destroy/{id}', 'destroy')->name('dropouts.destroy')->middleware('auth');
+    Route::get('dropouts/exportExcel/', 'exportExcel')->name('dropouts.exportExcel');
+    Route::get('dropouts/exportPDF/', 'exportPDF')->name('dropouts.exportPDF');
+});
+
+//Graduates Route
+Route::controller(GraduateController::class)->group(function () {
+    Route::get('graduates', 'index')->name('graduates.index')->middleware('auth');
+    Route::get('graduates/create', 'create')->name('graduates.create')->middleware('auth');
+    Route::post('graduates/create', 'store')->name('graduates.store')->middleware('auth');
+    Route::get('graduates/edit/{id}', 'edit')->name('graduates.edit')->middleware('auth');
+    Route::post('graduates/edit/{id}', 'update')->name('graduates.update')->middleware('auth');
+    Route::get('graduates/details/{id}', 'details')->name('graduates.details')->middleware('auth');
+    Route::get('graduates/destroy/{id}', 'destroy')->name('graduates.destroy')->middleware('auth');
+    Route::get('graduates/exportExcel/', 'exportExcel')->name('graduates.exportExcel');
+    Route::get('graduates/exportPDF/', 'exportPDF')->name('graduates.exportPDF');
+});
+
+//School Types Routes
+Route::controller(SchoolTypeController::class)->group(function () {
+    Route::get('schooltypes', 'index')->name('schooltypes.index')->middleware('auth');
+    Route::get('schooltypes/create', 'create')->name('schooltypes.create')->middleware('auth');
+    Route::post('schooltypes/create', 'store')->name('schooltypes.store')->middleware('auth');
+    Route::get('schooltypes/edit/{id}', 'edit')->name('schooltypes.edit')->middleware('auth');
+    Route::post('schooltypes/edit/{id}', 'update')->name('schooltypes.update')->middleware('auth');
+    Route::get('schooltypes/destroy/{id}', 'destroy')->name('schooltypes.destroy')->middleware('auth');
 });

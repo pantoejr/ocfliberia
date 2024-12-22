@@ -104,6 +104,18 @@
                         <span>Students</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('dropouts.index') }}" wire:navigate>
+                        <i class="fas fa-fw fa-user"></i>
+                        <span>Dropouts</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('graduates.index') }}" wire:navigate>
+                        <i class="fas fa-fw fa-user"></i>
+                        <span>Graduates</span>
+                    </a>
+                </li>
             @endhaspermission
             @haspermission('manage-beneficiaries')
                 <li class="nav-item">
@@ -171,6 +183,7 @@
                             <h6 class="collapse-header">SYSTEM TYPES</h6>
                             @haspermission('manage-county-types')
                                 <a class="collapse-item" href="{{ route('counties.index') }}" wire:navigate>County Types</a>
+                                <a class="collapse-item" href="{{ route('schooltypes.index') }}" wire:navigate>School Types</a>
                             @endhaspermission
                             @haspermission('manage-distribution-types')
                                 <a class="collapse-item" href="{{ route('distributiontypes.index') }}"
