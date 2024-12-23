@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class BillingItem extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'cost',
+        'currency_id',
+        'created_by'
+    ];
 }
