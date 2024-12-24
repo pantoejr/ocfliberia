@@ -17,4 +17,9 @@ class InvoiceItem extends Model
         'total_cost',
         'created_by'
     ];
+
+    public function invoice()
+    {
+        return $this->belongsTo(Invoice::class);
+    }
 }

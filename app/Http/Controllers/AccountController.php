@@ -104,15 +104,16 @@ class AccountController extends Controller
 
     public function update(Request $request, $id)
     {
-        try{
+        try {
 
+            $role = Role::findById($request->role_id);
             $user = User::find($id);
-            if($request->hasFile('imagePath')){
-                if($user->imagePath){
+            if ($request->hasFile('imagePath')) {
+                if ($user->imagePath) {
                     Storage::disk('storage')->delete($user->imagePath);
                 }
 
-                $path = $request->file('imagePath')->store('images','public');
+                $path = $request->file('imagePath')->store('images', 'public');
                 $user->imagePath = $path;
             }
             $isActive = $request->is_active ? 1 : 0;
@@ -122,9 +123,9 @@ class AccountController extends Controller
             $user->name = $request->name;
             $user->is_active = $isActive;
             $user->save();
-
-        }catch(Exception $ex){
-            return back()->with('msg','Error: '. $ex->getMessage())->with('flag','alert-danger');
+            $user->syncRoles($role);
+        } catch (Exception $ex) {
+            return back()->with('msg', 'Error: ' . $ex->getMessage())->with('flag', 'alert-danger');
         }
         return redirect('account/users')->with('msg', 'User updated successfully')->with('flag', 'alert-success');
     }
@@ -146,7 +147,7 @@ class AccountController extends Controller
     {
         $user = User::find($id);
         $user->delete();
-        return redirect('/account/users')->with('msg', 'User deleted successfully')->with('flag','alert-success');
+        return redirect('/account/users')->with('msg', 'User deleted successfully')->with('flag', 'alert-success');
     }
 
     public function changePassword()
@@ -178,6 +179,6 @@ class AccountController extends Controller
             'login_hint' => $request->new_password,
         ]);
 
-        return back()->with('msg', 'Password changed successfully!')->with('flag','alert-success');
+        return back()->with('msg', 'Password changed successfully!')->with('flag', 'alert-success');
     }
 }

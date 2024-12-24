@@ -18,4 +18,9 @@ class Invoice extends Model
         'notes',
         'created_by'
     ];
+
+    public function invoiceItems()
+    {
+        return $this->hasMany(InvoiceItem::class);
+    }
 }

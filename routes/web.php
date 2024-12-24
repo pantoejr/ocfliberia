@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\CountyTypeController;
+use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\DistributionBeneficiaryController;
 use App\Http\Controllers\DistributionController;
 use App\Http\Controllers\DistributionTypeController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SchoolTypeController;
 use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\VisitController;
+use App\Models\Currency;
 use Illuminate\Support\Facades\Route;
 
 
@@ -192,4 +194,10 @@ Route::controller(SchoolTypeController::class)->group(function () {
     Route::get('schooltypes/edit/{id}', 'edit')->name('schooltypes.edit')->middleware('auth');
     Route::post('schooltypes/edit/{id}', 'update')->name('schooltypes.update')->middleware('auth');
     Route::get('schooltypes/destroy/{id}', 'destroy')->name('schooltypes.destroy')->middleware('auth');
+});
+
+//Currencies Routes
+Route::controller(CurrencyController::class)->group(function () {
+    Route::get('currencies', 'index')->name('currencies.index')->middleware('auth');
+    Route::get('currencies/create', 'create')->name('currencies.create')->middleware('auth');
 });

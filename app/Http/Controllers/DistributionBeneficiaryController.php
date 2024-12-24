@@ -9,22 +9,24 @@ use Illuminate\Http\Request;
 
 class DistributionBeneficiaryController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $distributionBeneficiaries = ProjectBeneficiary::all();
-        return view('distributionbeneficiaries.index',[
+        return view('distributionbeneficiaries.index', [
             'title' => 'Distribution Beneficiaries',
             'distributionBeneficiaries' => $distributionBeneficiaries,
         ]);
     }
 
-    public function viewPdf(){
+    public function viewPdf()
+    {
         $beneficiaries = ProjectBeneficiary::all();
 
-        $pdf = PDF::loadView('distributionbeneficiaries.viewPdf', data:[
+        $pdf = PDF::loadView('distributionbeneficiaries.viewPdf', data: [
             'beneficiaries' => $beneficiaries,
             'title' => 'Project Beneficiaries',
         ])
-        ->setPaper('a4', 'portrait');
+            ->setPaper('a4', 'landscape');
         return $pdf->stream();
     }
 }

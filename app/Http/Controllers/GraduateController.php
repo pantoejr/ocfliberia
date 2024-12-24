@@ -70,10 +70,12 @@ class GraduateController extends Controller
 
     public function edit($id)
     {
+        $schoolTypes = SchoolType::pluck('name', 'id');
         $graduate = Graduate::findOrFail($id);
         return view('graduates.edit', [
             'title' => 'Edit Graduate',
             'graduate' => $graduate,
+            'schoolTypes' => $schoolTypes,
         ]);
     }
 
