@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
-@php
-    $count = 1;
-@endphp
+    @php
+        $count = 1;
+    @endphp
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -29,9 +29,13 @@
                                             <td>{{ $distribution->distribution_date }}</td>
                                             <td>{{ $distribution->num_distributed }}</td>
                                             <td>
-                                                <a href="{{ route('distributions.edit', ['id' => $distribution->id]) }}" class="btn btn-warning btn-sm"><i class="fas fa-fw fa-edit"></i></a>
-                                                <a href="{{ route('distributions.details', ['id' => $distribution   ->id]) }}" class="btn btn-primary btn-sm"><i class="fas fa-fw fa-book"></i></a>
-                                                <a href="{{ route('distributions.destroy', ['id' => $distribution   ->id]) }}" onclick="confirmDelete(event)" class="btn btn-danger btn-sm"><i class="fas fa-fw fa-trash"></i></a>
+                                                <a href="{{ route('distributions.edit', ['id' => $distribution->id]) }}"
+                                                    class="btn btn-warning btn-sm"><i class="fas fa-fw fa-edit"></i></a>
+                                                <a href="{{ route('distributions.details', ['id' => $distribution->id]) }}"
+                                                    class="btn btn-primary btn-sm"><i class="fas fa-fw fa-book"></i></a>
+                                                <a href="{{ route('distributions.destroy', ['id' => $distribution->id]) }}"
+                                                    onclick="confirmDelete(event)" class="btn btn-danger btn-sm"><i
+                                                        class="fas fa-fw fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         @php
@@ -47,17 +51,8 @@
         </div>
     </div>
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function() {
             $('#distributionTable').DataTable();
         });
-    </script>
-    <script type="text/javascript">
-        function confirmDelete(event) {
-            event.preventDefault();
-            if (confirm("Are you sure you want to delete this record?")) {
-                window.location.href = event.currentTarget.href;
-            }
-            return false;
-        }
     </script>
 @endsection

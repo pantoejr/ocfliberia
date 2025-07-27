@@ -22,7 +22,8 @@ class Beneficiary extends Model
         'is_active',
     ];
 
-    public function school(){
+    public function school()
+    {
         return $this->belongsTo(School::class);
     }
 }

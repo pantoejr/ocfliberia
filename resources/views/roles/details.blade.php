@@ -17,7 +17,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">Remove Permission(s) from {{ $role->name }}</div>
-                    <div class="card-body">
+                    <div class="card-body" style="overflow: scroll; height:300px;">
                         @livewire('remove-role-permission', ['roleId' => $role->id])
                     </div>
                 </div>
@@ -25,7 +25,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">Assign Permission(s) to {{ $role->name }}</div>
-                    <div class="card-body">
+                    <div class="card-body" style="overflow: scroll; height:300px;">
                         @livewire('add-role-permission', ['roleId' => $role->id])
                     </div>
                 </div>

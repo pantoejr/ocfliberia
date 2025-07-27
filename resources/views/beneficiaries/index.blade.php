@@ -94,18 +94,7 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#beneficiaryTable').dataTable({
-
-            });
+            $('#beneficiaryTable').dataTable();
         })
-    </script>
-    <script type="text/javascript">
-        function confirmDelete(event) {
-            event.preventDefault();
-            if (confirm("Are you sure you want to delete this record?")) {
-                window.location.href = event.currentTarget.href;
-            }
-            return false;
-        }
     </script>
 @endsection

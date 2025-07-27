@@ -18,8 +18,9 @@
 <link rel="icon" type="X-icon" href="{{ asset('assets/img/logo.png') }}" />
 <link href="{{ asset('assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
-<link href="{{ asset('assets/vendor/datatables/dataTables.bootstrap4.css') }}" rel="stylesheet">
-<script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('https://code.jquery.com/jquery-3.7.1.js') }}"></script>
+<link href="{{ asset('https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css') }}" rel="stylesheet">
+<link href="{{ asset('https://cdn.datatables.net/buttons/3.2.1/css/buttons.dataTables.css') }}" rel="stylesheet">
 @livewireStyles
 
 </head>
@@ -141,7 +142,7 @@
                     </a>
                 </li>
             @endhaspermission
-            {{-- @haspermission('manage-reports')
+            @haspermission('manage-reports')
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                         aria-expanded="true" aria-controls="collapseUtilities">
@@ -156,6 +157,28 @@
                                 wire:navigate>Distributions</a>
                             <a class="collapse-item" href="{{ route('reports.visits') }}" wire:navigate>Visits</a>
                             <a class="collapse-item" href="{{ route('reports.sponsors') }}" wire:navigate>Sponsors</a>
+                            <a class="collapse-item" href="{{ route('reports.institutions') }}"
+                                wire:navigate>Institutions</a>
+                        </div>
+                    </div>
+                </li>
+            @endhaspermission
+            {{-- @haspermission('manage-finance')
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFinances"
+                        aria-expanded="true" aria-controls="collapseFinances">
+                        <i class="fas fa-fw fa-money-bill"></i>
+                        <span>Finance</span>
+                    </a>
+                    <div id="collapseFinances" class="collapse" aria-labelledby="headingPages"
+                        data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            @haspermission('manage-currencies')
+                                <a class="collapse-item" href="{{ route('currencies.index') }}" wire:navigate>Currencies</a>
+                            @endhaspermission
+                            @haspermission('manage-clients')
+                                <a class="collapse-item" href="{{ route('clients.index') }}" wire:navigate>Clients</a>
+                            @endhaspermission
                         </div>
                     </div>
                 </li>
@@ -167,7 +190,8 @@
                         <i class="fas fa-fw fa-cog"></i>
                         <span>Settings</span>
                     </a>
-                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
+                        data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">ACCOUNT</h6>
                             @haspermission('manage-users')
@@ -177,13 +201,15 @@
                                 <a class="collapse-item" href="{{ route('roles.index') }}" wire:navigate>Roles</a>
                             @endhaspermission
                             @haspermission('manage-permissions')
-                                <a class="collapse-item" href="{{ route('permissions.index') }}" wire:navigate>Permissions</a>
+                                <a class="collapse-item" href="{{ route('permissions.index') }}"
+                                    wire:navigate>Permissions</a>
                             @endhaspermission
                             <div class="collapse-divider"></div>
                             <h6 class="collapse-header">SYSTEM TYPES</h6>
                             @haspermission('manage-county-types')
                                 <a class="collapse-item" href="{{ route('counties.index') }}" wire:navigate>County Types</a>
-                                <a class="collapse-item" href="{{ route('schooltypes.index') }}" wire:navigate>School Types</a>
+                                <a class="collapse-item" href="{{ route('schooltypes.index') }}" wire:navigate>School
+                                    Types</a>
                             @endhaspermission
                             @haspermission('manage-distribution-types')
                                 <a class="collapse-item" href="{{ route('distributiontypes.index') }}"
@@ -269,14 +295,38 @@
 
     <!-- Bootstrap core JavaScript-->
     @livewireScripts
-    <script src="{{ asset('assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.reportTable').DataTable({
+                layout: {
+                    topStart: {
+                        buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5', 'print']
+                    }
+                }
+            });
+        })
+    </script>
+    <script type="text/javascript">
+        function confirmDelete(event) {
+            event.preventDefault();
+            if (confirm("Are you sure you want to delete this record?")) {
+                window.location.href = event.currentTarget.href;
+            }
+            return false;
+        }
+    </script>
+    <script src="{{ asset('https://cdn.datatables.net/2.2.2/js/dataTables.js') }}"></script>
+    <script src="{{ asset('https://cdn.datatables.net/buttons/3.2.1/js/dataTables.buttons.js') }}"></script>
+    <script src="{{ asset('https://cdn.datatables.net/buttons/3.2.1/js/buttons.dataTables.js') }}"></script>
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js') }}"></script>
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('https://cdn.datatables.net/buttons/3.2.1/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('https://cdn.datatables.net/buttons/3.2.1/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('assets/js/sb-admin-2.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/chart.js/Chart.min.js') }}"></script>
-
-
 </body>
 
 </html>

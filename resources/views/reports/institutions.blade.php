@@ -9,7 +9,7 @@
                 <h4>{{ $title }}</h4>
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('reports.sponsors') }}" method="GET">
+                        <form action="{{ route('reports.institutions') }}" method="GET">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -36,18 +36,20 @@
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>Name</th>
-                                                <th>Email</th>
-                                                <th>Contact</th>
+                                                <th>County</th>
+                                                <th>Sponsor</th>
+                                                <th>Total No. of Girls</th>
+                                                <th>Location</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($sponsors as $sponsor)
+                                            @foreach ($institutions as $institution)
                                                 <tr>
                                                     <td>{{ $count }}</td>
-                                                    <td>{{ $sponsor->name }}</td>
-                                                    <td>{{ $sponsor->email }}</td>
-                                                    <td>{{ $sponsor->contact }}</td>
+                                                    <td>{{ $institution->county->name }}</td>
+                                                    <td>{{ $institution->sponsor->name }}</td>
+                                                    <td>{{ $institution->total_girls }}</td>
+                                                    <td>{{ $institution->location }}</td>
                                                 </tr>
                                                 @php
                                                     $count++;

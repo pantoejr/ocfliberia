@@ -25,8 +25,11 @@
                                             <td>{{ $count }}</td>
                                             <td>{{ $county->name }}</td>
                                             <td>
-                                                <a href="{{ route('counties.edit', ['id' => $county->id]) }}" class="btn btn-warning btn-sm"><i class="fas fa-fw fa-edit"></i></a>
-                                                <a href="{{ route('counties.destroy', ['id' => $county->id]) }}" onclick="confirmDelete(event)" class="btn btn-danger btn-sm"><i class="fas fa-fw fa-trash"></i></a>
+                                                <a href="{{ route('counties.edit', ['id' => $county->id]) }}"
+                                                    class="btn btn-warning btn-sm"><i class="fas fa-fw fa-edit"></i></a>
+                                                <a href="{{ route('counties.destroy', ['id' => $county->id]) }}"
+                                                    onclick="confirmDelete(event)" class="btn btn-danger btn-sm"><i
+                                                        class="fas fa-fw fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         @php
@@ -42,19 +45,10 @@
         </div>
     </div>
     <script type="text/javascript">
-        $(document).ready(function (){
+        $(document).ready(function() {
             $('#countyTable').dataTable({
 
             });
         })
-    </script>
-    <script type="text/javascript">
-        function confirmDelete(event) {
-            event.preventDefault();
-            if (confirm("Are you sure you want to delete this record?")) {
-                window.location.href = event.currentTarget.href;
-            }
-            return false;
-        }
     </script>
 @endsection

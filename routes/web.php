@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BeneficiaryController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CountyTypeController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\DistributionBeneficiaryController;
@@ -158,6 +159,7 @@ Route::controller(ReportController::class)->group(function () {
     Route::get('reports/distributions', 'distributions')->name('reports.distributions')->middleware('auth')->can('view-distribution-report');
     Route::get('reports/visits', 'visits')->name('reports.visits')->middleware('auth')->can('view-visits-report');
     Route::get('reports/sponsors', 'sponsors')->name('reports.sponsors')->middleware('auth')->can('view-sponsors-report');
+    Route::get('reports/institutions', 'institutions')->name('reports.institutions')->middleware('auth')->can('view-institutions-report');
 });
 
 //Droupouts Routes
@@ -198,6 +200,20 @@ Route::controller(SchoolTypeController::class)->group(function () {
 
 //Currencies Routes
 Route::controller(CurrencyController::class)->group(function () {
-    Route::get('currencies', 'index')->name('currencies.index')->middleware('auth');
-    Route::get('currencies/create', 'create')->name('currencies.create')->middleware('auth');
+    Route::get('currencies', 'index')->name('currencies.index')->middleware('auth')->can('manage-currencies');
+    Route::get('currencies/create', 'create')->name('currencies.create')->middleware('auth')->can('add-currency');
+    Route::post('currencies/create', 'store')->name('currencies.store')->middleware('auth')->can('add-currency');
+    Route::get('currencies/edit/{id}', 'edit')->name('currencies.edit')->middleware('auth')->can('edit-currency');
+    Route::post('currencies/edit/{id}', 'update')->name('currencies.update')->middleware('auth')->can('edit-currency');
+    Route::get('currencies/delete/{id}', 'destroy')->name('currencies.destroy')->middleware('auth')->can('delete-currency');
+});
+
+//Clients Route
+Route::controller(ClientController::class)->group(function () {
+    Route::get('clients', 'index')->name('clients.index')->middleware('auth')->can('manage-clients');
+    Route::get('clients/create', 'create')->name('clients.create')->middleware('auth')->can('add-client');
+    Route::post('clients/create', 'store')->name('clients.store')->middleware('auth')->can('add-client');
+    Route::get('clients/edit/{id}', 'edit')->name('clients.edit')->middleware('auth')->can('edit-client');
+    Route::post('clients/edit/{id}', 'update')->name('clients.update')->middleware('auth')->can('edit-client');
+    Route::get('clients/delete/{id}', 'destroy')->name('clients.destroy')->middleware('auth')->can('delete-client');
 });

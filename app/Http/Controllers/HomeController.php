@@ -15,10 +15,11 @@ class HomeController extends Controller
 {
     public function dashboard()
     {
-        $sponsorCount = Sponsor::whereYear('created_at', date('Y'))->where('is_active', true)->count();
-        $schoolCount = School::whereYear('created_at', date('Y'))->where('is_active', true)->count();
-        $beneficiaryCount = Beneficiary::whereYear('created_at', date('Y'))->where('is_active', true)->count();
-        $visitCount = Visit::whereYear('created_at', date('Y'))->where('is_active', true)->count();
+        $sponsorCount = Sponsor::count();
+        $schoolCount = School::count();
+        $beneficiaryCount = Beneficiary::count();
+        //$visitCount = Visit::whereYear('created_at', date('Y'))->where('is_active', true)->count();
+        $visitCount = Visit::count();
 
         $data = Visit::select(
             's.name as sponsor_name',

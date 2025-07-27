@@ -7,8 +7,8 @@
         <div class="row">
             <div class="col-md-12">
                 <h3>{{ $title }}</h3>
-                @haspermission('add-student')
-                    <a href="{{ route('currencies.create') }}" class="btn btn-primary mb-2">Add New Record</a>
+                @haspermission('add-client')
+                    <a href="{{ route('clients.create') }}" class="btn btn-primary mb-2">Add New Record</a>
                 @endhaspermission
                 <div class="card">
                     <div class="card-body">
@@ -18,18 +18,30 @@
                                     <tr>
                                         <th>No.</th>
                                         <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone Number</th>
+                                        <th>Status</th>
                                         <th>Action(s)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($currencies as $currency)
+                                    @foreach ($clients as $client)
                                         <tr>
                                             <td>{{ $count }}</td>
-                                            <td>{{ $currency->name }}</td>
+                                            <td>{{ $client->name }}</td>
+                                            <td>{{ $client->email }}</td>
+                                            <td>{{ $client->phone_number }}</td>
                                             <td>
-                                                <a href="{{ route('currencies.edit', ['id' => $currency->id]) }}"
+                                                @if ($client->is_active == true)
+                                                    <span class="badge bg-success text-white">Yes</span>
+                                                @else
+                                                    <span class="badge bg-danger text-white">No</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('clients.edit', ['id' => $client->id]) }}"
                                                     class="btn btn-warning btn-sm"><i class="fas fa-fw fa-edit"></i></a>
-                                                <a href="{{ route('currencies.destroy', ['id' => $currency->id]) }}"
+                                                <a href="{{ route('clients.destroy', ['id' => $client->id]) }}"
                                                     onclick="confirmDelete(event)" class="btn btn-danger btn-sm"><i
                                                         class="fas fa-fw fa-trash"></i></a>
                                             </td>
